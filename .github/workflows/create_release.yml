@@ -15,11 +15,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     
+    - name: Make setup.sh executable
+      run: chmod +x debian/setup.sh
+    
     - name: Build package
       working-directory: debian
       run: ./setup.sh Ubuntu ${{ github.event.release.tag_name }}
 
-    - name: Upload wheel and debian packages to release
+    - name: Upload debian package to release
       uses: softprops/action-gh-release@v2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
